@@ -5,7 +5,7 @@ For this zoomcamp, I am using Windows and Git Bash. Note that files used may be 
 ## How to use the files:  
 
  - Make a folder and have the the 3 files: Dockerfile, docker-compose.yaml and ingest_data.py.  
- - Get the data through `wget "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"`. Note that it can be in csv or parquet format too and that's fine. In the end, we need to provide data to work on.  
+ - Get the data through `URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"`. Note that it can be in csv or parquet format too and that's fine. In the end, we need to provide data to work on. But make sure wget works on your terminal!
  - Make sure to run `docker build -t taxi_ingest:v001 .` so that the container knows to use recently updated files (ingest_data.py) in this case.  
  - If you are using the docker-compose.yaml from my repo, create a directory called data_pgadmin to persist the data there.
  - Run `docker-compose up`. I prefer running `docker-compose up -d` as it allows me to run other commands in the same terminal. By not detaching it, I have to open a separate terminal to run commands.
