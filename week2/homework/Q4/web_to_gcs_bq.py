@@ -28,7 +28,6 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     # path = Path(f"data/{color}/{dataset_file}.parquet")
     # df.to_parquet(path, compression="gzip", index=False)
     # return path
-    """Write DataFrame out locally as parquet file"""
     path_file = f"{dataset_file}.parquet"
     path_dir = Path(f"data/{color}")
     path_dir.mkdir(parents=True, exist_ok=True)
@@ -72,7 +71,7 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("akshar-zoom-gcp-creds")
 
     df.to_gbq(
-        destination_table="zoomcamp_akshar_prefect.yellow_2019_02_03",
+        destination_table="zoomcamp_akshar_prefect.green_2020_11",
         project_id="dtc-de-akshar",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=500_000,
