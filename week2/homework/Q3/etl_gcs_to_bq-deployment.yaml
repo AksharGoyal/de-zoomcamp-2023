@@ -1,0 +1,64 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-gcs-to-bq'
+###
+name: HomeworkQ3
+description: Main ETL flow to load data into Big Query
+version: e52da7e3ac9e5d0b49fb1b5a092c4117
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  months:
+  - 2
+  - 3
+  year: 2019
+  color: yellow
+schedule: null
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-gcs-to-bq
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: 7e4eb516-5e6f-4d3b-93d7-5e52c3cc1022
+  _block_document_name: anonymous-1d45a105-f46e-458e-8bcc-705750fa0159
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage: null
+path: C:\Users\claim\Desktop\DPhi_AIplanet\DataTalks\Data-Enginerring\week_2_prefect\homework\Q3
+entrypoint: etl_gcs_to_bq.py:etl_gcs_to_bq
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    months:
+      title: months
+      default:
+      - 1
+      - 2
+      position: 0
+      type: array
+      items:
+        type: integer
+    year:
+      title: year
+      default: 2021
+      position: 1
+      type: integer
+    color:
+      title: color
+      default: yellow
+      position: 2
+      type: string
+  required: null
+  definitions: null
