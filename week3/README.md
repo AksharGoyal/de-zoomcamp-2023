@@ -16,9 +16,30 @@ Here is an overview of what is OnLine Transaction Processing and OnLine Analytic
 | Backup and Recovery | Regular backups required to ensure business continuity and meet legal requirements | Lost data can be reloaded from OLTP as need in place of regular backups |
   
   
-  
 ## Data Warehouse
 
 Data Warehouse falls in OLAP category used for reporting and data analysis. It consists of raw data, metadata and summary. It has many data sources such as OS, flat files, OLTP database, etc. Data Warehouse can be transformed into Data Marts (subsets of Data Warehouse) which different users can access. Data Scientist can use raw data from Data Warehouse.  
 
 <img width="90%" alt="image" src="https://user-images.githubusercontent.com/38995624/219380978-ae91f697-bb48-4649-860e-5f85266a936b.png">
+
+## BigQuery  
+
+BigQuery is a Data Warehouse sans server to manage or database software to install. BigQuery provides software as well as infrastructure including scalability and high availability. One can start with couple of gigabytes in BigQuery and can scale easily to petabytes easily. We can do machine learning via SQL interface in BigQuery, handle geospatial data and doing business intelligence queries. BigQuery maximizes flexibility by separating compute engine that analyzes your data from your storage.
+
+## BigQuery Interface  
+
+<img width="958" alt="image" src="https://user-images.githubusercontent.com/38995624/219385431-200726c6-4ff4-49f1-abea-44a401097c97.png">
+
+Here, `dtc-de-akshar` is the project name, `nyc_taxi` is the dataset and the tables inside are external. BigQuery provides a lot of open-source public data. For example, we can run the following command in which the dataset can be accessed by anyone and we can also see its schema, preview or other details.
+```sql
+SELECT  FROM `bigquery-public-data.new_york_citibike.citibike_stations` LIMIT 1000
+```
+The results can be explored through Data Studio and the query results can be saved as a CSV file too.  
+
+## BigQuery Costs  
+
+- On deman pricing:  
+  - 1 TB of data processed is $5  
+- Flat rate pricing  
+  - Based on number of pre requested slots  
+  - 100 slots $\rightarrow$ \$2k/month = 400 TB data processed on demand pricing
