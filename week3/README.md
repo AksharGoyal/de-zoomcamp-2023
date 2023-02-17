@@ -38,8 +38,13 @@ The results can be explored through Data Studio and the query results can be sav
 
 ## BigQuery Costs  
 
-- On deman pricing:  
+- On demand pricing:  
   - 1 TB of data processed is $5  
 - Flat rate pricing  
   - Based on number of pre requested slots  
-  - 100 slots $\rightarrow$ \$2k/month = 400 TB data processed on demand pricing
+  - 100 slots $\rightarrow$ \$2k/month = 400 TB data processed on demand pricing  
+
+Flat rate pricing is not recommended unless we are scanning 200TB of data. On demand pricing is also preferred if we running N+1 queries and our N slots are full so the (N+1)$^{th}$ query will have to wait in Flate rate pricing. On demand BigQuery can give us more slots as per the requirements of the query.
+
+## External Tables  
+
