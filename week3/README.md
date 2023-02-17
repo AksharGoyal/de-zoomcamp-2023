@@ -32,7 +32,7 @@ BigQuery is a Data Warehouse sans server to manage or database software to insta
 
 Here, `dtc-de-akshar` is the project name, `nyc_taxi` is the dataset and the tables inside are external. BigQuery provides a lot of open-source public data. For example, we can run the following command in which the dataset can be accessed by anyone and we can also see its schema, preview or other details.
 ```sql
-SELECT  FROM `bigquery-public-data.new_york_citibike.citibike_stations` LIMIT 1000
+SELECT FROM `bigquery-public-data.new_york_citibike.citibike_stations` LIMIT 1000
 ```
 The results can be explored through Data Studio and the query results can be saved as a CSV file too.  
 
@@ -48,3 +48,12 @@ Flat rate pricing is not recommended unless we are scanning 200TB of data. On de
 
 ## External Tables  
 
+We can cretae external tables from datasets in your bucket.  
+
+```sql
+CREATE OR REPLACE EXTERNAL TABLE `dtc-de-akshar.nyc_taxi.external_yellow_nytaxi`
+OPTIONS (
+  format = 'PARQUET',
+  uris = ['gs://bigquery_dtc_de_week_3/data/yellow/yellow_tripdata_2019-*.parquet', 'gs://bigquery_dtc_de_week_3/data/yellow/yellow_tripdata_2020-*.parquet']
+);
+```
