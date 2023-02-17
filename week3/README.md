@@ -48,12 +48,27 @@ Flat rate pricing is not recommended unless we are scanning 200TB of data. On de
 
 ## External Tables  
 
-We can cretae external tables from datasets in your bucket.  
-
+We can cretae external tables from datasets in your bucket. Here I am using all the 24 parquet files of yellow trip data of 2019 and 2020. 
 ```sql
 CREATE OR REPLACE EXTERNAL TABLE `dtc-de-akshar.nyc_taxi.external_yellow_nytaxi`
 OPTIONS (
   format = 'PARQUET',
   uris = ['gs://bigquery_dtc_de_week_3/data/yellow/yellow_tripdata_2019-*.parquet', 'gs://bigquery_dtc_de_week_3/data/yellow/yellow_tripdata_2020-*.parquet']
 );
+```
+External Tables have 0 storage size and 0 tabel size. However it cannot tell us the number of rows the table has as the table is not stored inside BigQuery.  
+
+## Partioning  
+
+When writing a query, we use one or more columns for filtering our datasets. We can partition the table to improve the performance and thus, retrieve information faster without reading any other records where the paritioning column doesn't meet the filter condition. In the comments of provided `bigquery_practice.sql` file in Practice folder, we observe that partitioning reduces cost and speed which implies improvement in performance whilge getting us the same results as for the non-partitioned table.
+```sql
+-- COMPARING PERFORMANCE OF PARTITIONED AND NON-PARTITIONED TABLE
+SELECT DISTINCT(VendorID)
+FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_non_partitoned
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2019-06-30';
+-- PROCESSED 1.62 GB IN 731ms
+SELECT DISTINCT(VendorID)
+FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2019-06-30';
+-- PROCESSED 105.91 MB in 467ms
 ```
