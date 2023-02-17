@@ -111,3 +111,46 @@ WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2020-12-31'
   AND VendorID=1;
 -- PROCESSED 880.27MB in 693m
 ```
+
+We can specify maximum of 4000 partitions and specify upto 4 clustering columns. Clustering columns must be top-level, non-repeated:  
+- DATE  
+- BOOL
+- GEOGRAPHY
+- INT64
+- NUMERIC
+- BIGNUMERIC
+- STRING
+- TIMESTAMP
+- DATETIME
+
+## Partitioning vs Clustering  
+
+| Clustering | Partitioning |  
+| :--- | :--- |  
+| Cost Benefit unknown | Cost known upfront (helpful in maintaining queries in particular amount of cost) |  
+| Provides more granularities | Need partition-level management only (deleting or creating new partitions between storage which is not possible in clustering) |  
+| Filter or aggregate on multiple column | Partioning can be done only on one column so our queries will filter or aggregate on single column |  
+| Cardinality of number of values in a column or group of columns is large | There is a limitation of 4000 partitions |  
+
+Use clustering if  
+- Partitioning results in small amount of data per partition ( $<1$ GB ) hence clustering is preferred for small partitions or high granularity in a column
+- number of partitions is large ( $>4000$ )
+- Querying every hour or writing data to BigQuery every hour can modify partitions which is not a good idea.
+
+## BigQuery Best Practices  
+
+- Cost reduction  
+  - Avoid SELECT \*, only use the columns that are needed to reduce cost of reading
+  - Price your queries before running them (highlighting a query can show an estimated cost of running it)
+  - use clustered or partitioned table for improved performance
+  - Use streaming inserts with caution (streaming can increase costs hence it is asked to avoid streaming in the homework)
+  - Materialize query results in stages
+  - Filter on partitioned columns
+  - Denormalize data
+  - Use nested or repeated columns
+  - Use external data sources appropriately
+  - Reduce data before using JSON
+  - Do not treat WITH clauses as prepared statements
+  - Avoid oversharding (over-partitioning) tables
+  - Order last to optimize performance
+
