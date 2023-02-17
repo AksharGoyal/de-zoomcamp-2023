@@ -62,6 +62,11 @@ External Tables have 0 storage size and 0 tabel size. However it cannot tell us 
 
 When writing a query, we use one or more columns for filtering our datasets. We can partition the table to improve the performance and thus, retrieve information faster without reading any other records where the paritioning column doesn't meet the filter condition. In the comments of provided `bigquery_practice.sql` file in Practice folder, we observe that partitioning reduces cost and speed which implies improvement in performance whilge getting us the same results as for the non-partitioned table.
 ```sql
+CREATE OR REPLACE TABLE dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned
+PARTITION BY
+  DATE(tpep_pickup_datetime) AS
+SELECT * FROM dtc-de-akshar.nyc_taxi.external_yellow_nytaxi;
+
 -- COMPARING PERFORMANCE OF PARTITIONED AND NON-PARTITIONED TABLE
 SELECT DISTINCT(VendorID)
 FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_non_partitoned
@@ -71,4 +76,38 @@ SELECT DISTINCT(VendorID)
 FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned
 WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2019-06-30';
 -- PROCESSED 105.91 MB in 467ms
+```
+
+We can also see which partition has how many rows.
+```sql
+SELECT table_name, partition_id, total_rows
+FROM `nyc_taxi.INFORMATION_SCHEMA.PARTITIONS`
+WHERE table_name = 'yellow_tripdata_partitoned'
+ORDER BY total_rows DESC;
+```
+<img width="416" alt="image" src="https://user-images.githubusercontent.com/38995624/219594221-39cd4c9e-a47f-44af-a884-3f3141e39863.png">
+
+## Clustering  
+
+We can cluster tables too by clustering on a column to group same tags which can improve our cost as well as query performance.  
+```sql
+-- CREATING A CLUSTERED TABLE
+CREATE OR REPLACE TABLE dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned_clustered
+PARTITION BY DATE(tpep_pickup_datetime)
+CLUSTER BY VendorID AS
+SELECT * FROM dtc-de-akshar.nyc_taxi.external_yellow_nytaxi;
+
+-- USE OF PARTIONING
+SELECT count(*) as trips
+FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2020-12-31'
+  AND VendorID=1;
+-- PROCESSED 1.07GB in 731ms
+
+-- USE OF CLUSTERING
+SELECT count(*) as trips
+FROM dtc-de-akshar.nyc_taxi.yellow_tripdata_partitoned_clustered
+WHERE DATE(tpep_pickup_datetime) BETWEEN '2019-06-01' AND '2020-12-31'
+  AND VendorID=1;
+-- PROCESSED 880.27MB in 693m
 ```
