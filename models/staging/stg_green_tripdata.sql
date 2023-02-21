@@ -1,5 +1,6 @@
 {{ config(materialized='view') }}
 
+<<<<<<< HEAD
 with tripdata as 
 (
   select *,
@@ -49,3 +50,6 @@ where rn = 1
   limit 100
 
 {% endif %}
+=======
+select * from {{ source('staging','green_tripdata') }} limit 100
+>>>>>>> 19388684ed67026163e4839cbc8e9e5c18708279

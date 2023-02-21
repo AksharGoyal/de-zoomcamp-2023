@@ -6,5 +6,5 @@ sources:
     schema: trips_data_all
 
     tables:
-      - green_tripdata
-      - yellow_tripdata
+      - name: green_tripdata
+      - name: yellow_tripdata
