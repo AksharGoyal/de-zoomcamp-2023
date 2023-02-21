@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: staging
-    database: dtc-de-aksha
+    database: dtc-de-akshar
     schema: trips_data_all
 
     tables:
