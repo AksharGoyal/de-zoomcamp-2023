@@ -23,7 +23,7 @@ dim_zones as (
     where borough != 'Unknown'
 )
 select 
-    trips_unioned.tripid, 
+    trips_unioned.trip_id, 
     trips_unioned.vendorid, 
     trips_unioned.service_type,
     trips_unioned.ratecodeid, 
