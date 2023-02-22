@@ -24,7 +24,7 @@ select
     cast(passenger_count as integer) as passenger_count,
     cast(trip_distance as numeric) as trip_distance,
     -- yellow cabs are always street-hail
-    cast(1 as float) as trip_type,
+    cast(1 as float64) as trip_type,
     
     -- payment info
     cast(fare_amount as numeric) as fare_amount,
