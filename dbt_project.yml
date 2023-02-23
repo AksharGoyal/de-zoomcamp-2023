@@ -42,6 +42,6 @@ vars:
 
 seeds: 
     ny_taxi_rides_data:
-        taxi_zone_lookup:
+        taxi_lookup_zone:
             +column_types:
                 locationid: numeric
