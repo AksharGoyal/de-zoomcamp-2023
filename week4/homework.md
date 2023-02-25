@@ -28,4 +28,4 @@
 
 ### What is the month with the biggest amount of rides after building a tile for the fact_fhv_trips table?  
 
-
+<a href="https://lookerstudio.google.com/s/lKVT9A2nOvo" target="_blank"><img width="425" alt="image" src="https://user-images.githubusercontent.com/38995624/221352449-fe0a285b-84fc-4870-9f18-1f85b68d5861.png"></a>
